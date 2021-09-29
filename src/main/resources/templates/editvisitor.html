@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Muuta vierailijan tietoja</title>
+<meta charset="UTF-8" content = text/css>
+<link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.css}" />
+</head>
+<body>
+	<h1>Muuta vierailijan tietoja</h1>
+	<div>
+		<form th:object="${person}" th:action="@{../saveedit}" action="#" method="POST">
+			
+			<input type="hidden" th:field="*{personId}" />	
+			
+			<label for ="firstName" value="${person.firstName}">Etunimi:</label>
+			<input type="text" class="form-control form-control-lg" th:field="*{firstName}" />		
+			<br>
+			<label for ="lastName" value="${person.lastName}">Sukunimi:</label>
+			<input class="form-control form-control-lg" type="text"th:field="*{lastName}" />	
+			<br>
+			<input type="submit" class="btn btn-primary" value="Muuta"></input>
+		
+		</form>
+		<h4>
+		 <a href="/visitlist">Takaisin alkuun</a>
+		</h4>
+	
+	</div>
+</body>

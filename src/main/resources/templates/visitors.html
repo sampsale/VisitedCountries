@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Lista vierailijoista</title>
+<meta charset="UTF-8" content = text/css>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.css}" />
+</head>
+<body>
+	<h1>Vierailijat</h1>
+	<table class="table table-hover">
+	<tr>
+		<th>ID</th>
+		<th>Nimi:</th>
+		<th>Poista</th>
+		<th>Muokkaa</th>
+	</tr>
+	<tr th:each="visitor:${visitors}">
+		<td th:text=${visitor.personId}></td>
+		<td th:text="${visitor.firstName} + ' ' + ${visitor.lastName}" ></td>
+		
+			<td> <a class="btn btn-danger" th:href="@{/delete/{personId}(personId=${visitor.personId})}" onclick="return confirm('Are you sure?')">Poista</a></td>
+			<td><a class="btn btn-success" th:href="@{/editvisitor/{personId}(personId=${visitor.personId})}">Muokkaa</a></td>
+			
+	</table>
+	<h1 class=".text-sm-left">Lisää vierailija:</h1> 
+	<div>
+		<form th:object="${visitor}" th:action="@{savevisitor}" method="post">
+		
+			<label for ="firstName">Etunimi:</label>
+			<input type="text" class="form-control form-control-lg" id="firstName" th:field="*{firstName}"> </input>
+			<p th:if="${#fields.hasErrors('firstName')}" >>Vierailijan etunimen pituus min. 2 merkkiä</p>
+			
+			<br>
+			<label for ="lastName">Sukunimi::</label>
+			<input type="text" class="form-control form-control-lg" id="lastName" th:field="*{lastName}"> </input>
+			<br>
+			
+		<input type="submit" class="col-sm-10" value="Lisää uusi vierailija"></input>
+		</form>
+		<h1 class=".text-sm-right"><a href="/visitlist">Takaisin alkuun</a> </h1>
+	
+	</div>
+</body>
