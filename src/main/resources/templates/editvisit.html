@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Muuta virailun tietoja</title>
+<meta charset="UTF-8" content="text/css">
+<link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.css}"/>
+</head>
+<body>
+	<h1>Muuta vierailun tietoja</h1>
+	<div>
+		<form th:object="${visit}" th:action="@{../savevisitedit}" method="POST">
+		
+			<input type="hidden" th:field="*{id}">
+			
+			<label for ="firstName" value="${visit.person.firstName}">Vierailija:</label>
+			<select id="visitorList" th:field="*{person}">
+       		<option th:each="person: ${visitors}" th:value="${person.personId}" th:text="${person.firstName} + ' ' + ${person.lastName}"></option>
+    		</select>
+			<br>
+			
+			<label for ="countryName" value="${visit.country.countryName}">Maa:</label>
+				<select id="countryList" th:field="*{country}">
+       			<option th:each="country: ${countries}" th:value="${country.countryId}" th:text="${country.countryName}"></option>
+    		</select>
+    		
+    		<br>
+			<label for ="date" value="${visit.date}">Vierailuaika:</label>
+			<input type="date" id="date" th:field="*{date}" ></input>
+			<br>
+			
+		<input type="submit" class="btn btn-primary" value="Muuta"></input>	
+		</form>
+	<h4> <a href="/visitlist">Takaisin alkuun</a></h4>
+	</div>
+</body>

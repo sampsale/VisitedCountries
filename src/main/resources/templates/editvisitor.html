@@ -8,7 +8,7 @@
 <body>
 	<h1>Muuta vierailijan tietoja</h1>
 	<div>
-		<form th:object="${person}" th:action="@{../saveedit}" action="#" method="POST">
+		<form th:object="${person}" th:action="@{../savevisitoredit}" action="#" method="POST">
 			
 			<input type="hidden" th:field="*{personId}" />	
 			

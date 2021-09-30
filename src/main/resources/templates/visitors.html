@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <title>Lista vierailijoista</title>
 <meta charset="UTF-8" content = text/css>
@@ -11,14 +11,14 @@
 	<tr>
 		<th>ID</th>
 		<th>Nimi:</th>
-		<th>Poista</th>
+		<th sec:authorize="hasRole('ADMIN')">Poista</th>
 		<th>Muokkaa</th>
 	</tr>
 	<tr th:each="visitor:${visitors}">
 		<td th:text=${visitor.personId}></td>
 		<td th:text="${visitor.firstName} + ' ' + ${visitor.lastName}" ></td>
 		
-			<td> <a class="btn btn-danger" th:href="@{/delete/{personId}(personId=${visitor.personId})}" onclick="return confirm('Are you sure?')">Poista</a></td>
+			<td sec:authorize="hasRole('ADMIN')">  <a class="btn btn-danger" th:href="@{/deletevisitor/{personId}(personId=${visitor.personId})}" onclick="return confirm('Haluatko varmasti poistaa vierailijan?')">Poista</a></td>
 			<td><a class="btn btn-success" th:href="@{/editvisitor/{personId}(personId=${visitor.personId})}">Muokkaa</a></td>
 			
 	</table>
@@ -27,8 +27,8 @@
 		<form th:object="${visitor}" th:action="@{savevisitor}" method="post">
 		
 			<label for ="firstName">Etunimi:</label>
-			<input type="text" class="form-control form-control-lg" id="firstName" th:field="*{firstName}"> </input>
-			<p th:if="${#fields.hasErrors('firstName')}" >>Vierailijan etunimen pituus min. 2 merkkiä</p>
+			<input type="text" class="form-control form-control-lg"  id="firstName" th:field="*{firstName}"> </input>
+			<p th:if="${#fields.hasErrors('firstName')}">Kirjan nimen pituus min. 2 merkkiä</p>
 			
 			<br>
 			<label for ="lastName">Sukunimi::</label>

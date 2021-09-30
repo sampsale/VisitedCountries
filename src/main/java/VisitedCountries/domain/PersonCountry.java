@@ -6,19 +6,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="personcountry")
 public class PersonCountry {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-    String date;
+	public String date;
 	@ManyToOne
-    @JoinColumn(name = "personId")
-    Person person;
+    @JoinColumn(name = "personid")
+    public Person person;
     @ManyToOne
-    @JoinColumn(name = "countryId")
-    Country country;
+    @JoinColumn(name = "countryid")
+    public Country country;
     
     public PersonCountry() {
     	

@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <title>Lista vierailuista</title>
 <meta charset="UTF-8" content = text/css>
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.css}" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.css" th:href="@{css/bootstrap.css}" />
 </head>
 <body>
-	<h1 class="display-2">Vierailut</h1>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" style="float: right;" value="Kirjaudu ulos" class="btn btn-sm btn-danger lg"/>
+		</form>
+	<h1 class="display-2"  >Vierailut</h1>
+	
 	<table class="table table-hover">
 		<tr>
 			<th>ID:</th>
 			<th>Maa:</th>
 			<th>Vierailija:</th>
 			<th>Päivämäärä:</th>
-			<th>Poista</th>
+			<th sec:authorize="hasRole('ADMIN')">Poista</th>
 			<th>Muokkaa</th>
 		</tr>
 		<tr th:each="visit: ${visits}">
@@ -21,13 +25,15 @@
 			<td th:text=${visit.country.countryName}></td>
 			<td th:text="${visit.person.firstName} + ' ' + ${visit.person.lastName}" ></td>
 			<td th:text=${visit.date}></td>
-			<td><a type= "button" class= "btn btn-danger">Poista</a></td>
-			<td><a type= "button" class= "btn btn-warning">Muokkaa</a></td>
+			<td sec:authorize="hasRole('ADMIN')"><a type= "button" th:href="@{/deletevisit/{visitId}(visitId=${visit.id})}" onclick="return confirm('Haluatko varmasti poistaa vierailun?')" class= "btn btn-danger">Poista</a></td>
+			<td><a type= "button" th:href="@{/editvisit/{visitId}(visitId=${visit.id})}" class="btn btn-warning">Muokkaa</a></td>
 		</tr>
 			
 	</table>
 	<h1>
 		<a  class="btn btn-primary btn-lg" href="/addvisit">Lisää vierailu</a>
 		<a  class="btn btn-info btn-lg" href="/visitors">Hallinnoi vierailjoita</a>
+		
 	</h1>
+	
 </body>

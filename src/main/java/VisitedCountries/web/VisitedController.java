@@ -68,6 +68,33 @@ public class VisitedController {
 			prepository.save(visitor);
 			return "redirect:visitors";
 		}
+		
+	// delete visit
+		@RequestMapping (value = "/deletevisit/{visitId}", method = RequestMethod.GET)
+		public String deleteVisit(@PathVariable("visitId") Long visitId, Model model) {
+			pcrepository.deleteById(visitId);
+			return "redirect:../visitlist";
+		}
+	// go to visit editpage
+		@RequestMapping(value="editvisit/{visitId}")
+		public String editVisit(@PathVariable("visitId") Long visitId, Model model) {
+			model.addAttribute("visit", pcrepository.findById(visitId));
+			model.addAttribute("countries", crepository.findAll());
+			model.addAttribute("visitors", prepository.findAll());
+			System.out.print(pcrepository.findById(visitId).toString());
+			return "editvisit";
+		}
+	// save visit edit 
+		@RequestMapping(value="/savevisitedit")
+		public String saveVisitEdit(@Valid PersonCountry visit, Model model, BindingResult bindingResult) {
+			if (bindingResult.hasErrors()) {
+				return "visitlist";
+			}
+			pcrepository.save(visit);
+			return "redirect:visitlist";
+		}
+		
+		
 
 	// go to visitor control page
 		@RequestMapping(value = "/visitors")
@@ -83,19 +110,23 @@ public class VisitedController {
 			return "editvisitor";
 		}
 		
-	// save visitor edit
-		@RequestMapping(value="saveedit")
-		public String saveEdit(@Valid Person visitor, Model model) {
+	// save visitor edit & validate
+		@RequestMapping(value="savevisitoredit")
+		public String saveEdit(@Valid Person visitor, Model model, BindingResult bindingResult) {
+			if (bindingResult.hasErrors()) {
+				return "editvisitor";
+			}
 			prepository.save(visitor);
 			return "redirect:visitors";
 		}
 	// delete visitor 
-		@RequestMapping (value = "/delete/{personId}", method = RequestMethod.GET)
+		@RequestMapping (value = "/deletevisitor/{personId}", method = RequestMethod.GET)
 		public String deleteVisitor(@PathVariable("personId") Long personId, Model model) {
 			
 			prepository.deleteById(personId);
 			return "redirect:../visitors";
 		}
+	
 		
 }
 
