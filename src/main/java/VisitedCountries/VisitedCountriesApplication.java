@@ -9,6 +9,8 @@ import VisitedCountries.domain.Country;
 import VisitedCountries.domain.Person;
 import VisitedCountries.domain.PersonCountry;
 import VisitedCountries.domain.PersonRepository;
+import VisitedCountries.domain.User;
+import VisitedCountries.domain.UserRepository;
 import VisitedCountries.domain.CountryRepository;
 import VisitedCountries.domain.PersonCountryRepository;
 
@@ -19,7 +21,7 @@ public class VisitedCountriesApplication {
 		SpringApplication.run(VisitedCountriesApplication.class, args);
 	}
 //	@Bean
-//	public CommandLineRunner bookDemo(PersonRepository prepository, CountryRepository crepository, PersonCountryRepository pcrepository) {
+//	public CommandLineRunner bookDemo(PersonRepository prepository, CountryRepository crepository, PersonCountryRepository pcrepository, UserRepository urepository) {
 //		return (args)-> {
 //			System.out.println("Pistetään pari testiä");
 //			
@@ -39,6 +41,11 @@ public class VisitedCountriesApplication {
 //			for (PersonCountry pcountry: pcrepository.findAll()) {
 //				System.out.println(pcountry.toString());
 //			}
+//			User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "ROLE_USER");
+//			User user2 = new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ROLE_ADMIN");
+//			urepository.save(user1);
+//			urepository.save(user2);
+//			
 //		};
 //	}
 }

@@ -1,9 +1,17 @@
 SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS country; 
 DROP TABLE IF EXISTS person; 
-DROP TABLE IF EXISTS person_country; 
 DROP TABLE IF EXISTS personcountry; 
+DROP TABLE IF EXISTS user; 
 SET FOREIGN_KEY_CHECKS=1;
+
+CREATE TABLE user (
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	username	VARCHAR(100),
+	password	VARCHAR(100),
+	role VARCHAR(100),
+	PRIMARY KEY (id)
+);
 
 CREATE TABLE country (
 	countryid BIGINT NOT NULL AUTO_INCREMENT,
@@ -29,6 +37,9 @@ CREATE TABLE personcountry (
 	FOREIGN KEY (personid) REFERENCES person (personid)
 	
 );
+
+INSERT INTO user (password, role, username) VALUES ('$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C', 'ROLE_ADMIN', 'admin');
+INSERT INTO user (password, role, username) VALUES ('$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 'ROLE_USER', 'user');
 
 
 INSERT INTO person (firstname, lastname) VALUES ('Sampsa', 'Leikas');

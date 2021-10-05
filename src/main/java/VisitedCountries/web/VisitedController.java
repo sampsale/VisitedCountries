@@ -4,6 +4,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -70,10 +71,11 @@ public class VisitedController {
 		}
 		
 	// delete visit
+		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 		@RequestMapping (value = "/deletevisit/{visitId}", method = RequestMethod.GET)
 		public String deleteVisit(@PathVariable("visitId") Long visitId, Model model) {
-			pcrepository.deleteById(visitId);
-			return "redirect:../visitlist";
+		pcrepository.deleteById(visitId);
+		return "redirect:../visitlist";
 		}
 	// go to visit editpage
 		@RequestMapping(value="editvisit/{visitId}")
@@ -85,6 +87,7 @@ public class VisitedController {
 			return "editvisit";
 		}
 	// save visit edit 
+		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 		@RequestMapping(value="/savevisitedit")
 		public String saveVisitEdit(@Valid PersonCountry visit, Model model, BindingResult bindingResult) {
 			if (bindingResult.hasErrors()) {
@@ -111,6 +114,7 @@ public class VisitedController {
 		}
 		
 	// save visitor edit & validate
+		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 		@RequestMapping(value="savevisitoredit")
 		public String saveEdit(@Valid Person visitor, Model model, BindingResult bindingResult) {
 			if (bindingResult.hasErrors()) {
@@ -120,6 +124,7 @@ public class VisitedController {
 			return "redirect:visitors";
 		}
 	// delete visitor 
+		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 		@RequestMapping (value = "/deletevisitor/{personId}", method = RequestMethod.GET)
 		public String deleteVisitor(@PathVariable("personId") Long personId, Model model) {
 			

@@ -12,14 +12,14 @@
 		<th>ID</th>
 		<th>Nimi:</th>
 		<th sec:authorize="hasRole('ADMIN')">Poista</th>
-		<th>Muokkaa</th>
+		<th sec:authorize="hasRole('ADMIN')">Muokkaa</th>
 	</tr>
 	<tr th:each="visitor:${visitors}">
 		<td th:text=${visitor.personId}></td>
 		<td th:text="${visitor.firstName} + ' ' + ${visitor.lastName}" ></td>
 		
 			<td sec:authorize="hasRole('ADMIN')">  <a class="btn btn-danger" th:href="@{/deletevisitor/{personId}(personId=${visitor.personId})}" onclick="return confirm('Haluatko varmasti poistaa vierailijan?')">Poista</a></td>
-			<td><a class="btn btn-success" th:href="@{/editvisitor/{personId}(personId=${visitor.personId})}">Muokkaa</a></td>
+			<td sec:authorize="hasRole('ADMIN')"><a class="btn btn-success" th:href="@{/editvisitor/{personId}(personId=${visitor.personId})}">Muokkaa</a></td>
 			
 	</table>
 	<h1 class=".text-sm-left">Lisää vierailija:</h1> 

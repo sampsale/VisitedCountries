@@ -18,7 +18,7 @@
 			<th>Vierailija:</th>
 			<th>Päivämäärä:</th>
 			<th sec:authorize="hasRole('ADMIN')">Poista</th>
-			<th>Muokkaa</th>
+			<th sec:authorize="hasRole('ADMIN')">Muokkaa</th>
 		</tr>
 		<tr th:each="visit: ${visits}">
 			<td th:text=${visit.id}></td>
@@ -26,7 +26,7 @@
 			<td th:text="${visit.person.firstName} + ' ' + ${visit.person.lastName}" ></td>
 			<td th:text=${visit.date}></td>
 			<td sec:authorize="hasRole('ADMIN')"><a type= "button" th:href="@{/deletevisit/{visitId}(visitId=${visit.id})}" onclick="return confirm('Haluatko varmasti poistaa vierailun?')" class= "btn btn-danger">Poista</a></td>
-			<td><a type= "button" th:href="@{/editvisit/{visitId}(visitId=${visit.id})}" class="btn btn-warning">Muokkaa</a></td>
+			<td sec:authorize="hasRole('ADMIN')"><a type= "button" th:href="@{/editvisit/{visitId}(visitId=${visit.id})}" class="btn btn-warning">Muokkaa</a></td>
 		</tr>
 			
 	</table>
